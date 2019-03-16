@@ -11,7 +11,6 @@ exports.index = function (req, res) {
     });
 };
 
-
 // Handle log contact actions
 exports.new = function (req, res) {
     const offset = 2;
@@ -33,13 +32,13 @@ exports.new = function (req, res) {
 };
 // Handle view contact info
 exports.view = function (req, res) {
-    console.log("Not implemented")
+    res.json({ message:"Not implemented"})
 };
 // Handle update contact info
 exports.update = function (req, res) {
-    console.log("Not implemented")
+    res.json({ message:"Not implemented"})
 };
 // Handle delete contact
 exports.delete = function (req, res) {
-    console.log("Not implemented")
+    res.json({ message:"Not implemented"})
 };

@@ -1,7 +1,5 @@
 let express = require('express');
 let bodyParser = require('body-parser');
-// const MongoClient = require('mongodb').MongoClient;
-
 let app = express();
 // Import routes
 let apiRoutes = require("./api-routes")
@@ -10,13 +8,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 app.use(bodyParser.json());
-// Connection url
 
-// Database Connection
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://10.16.193.9:27017';
-
-MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+// Database Connection
+MongoClient.connect('mongodb://10.16.193.9:27017', { useNewUrlParser: true }, function(err, client) {
     if (err) throw err;
     global.db = client.db('test2');
 });
