@@ -12,7 +12,14 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 // Connection url
 
-// Database Name
+// Database Connection
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://10.16.193.9:27017';
+
+MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+    if (err) throw err;
+    global.db = client.db('test2');
+});
 
 // Setup server port
 var port = process.env.PORT || 8080;
