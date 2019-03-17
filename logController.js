@@ -1,17 +1,18 @@
-// Handle index actions
+// Handle get actions
 exports.index = function (req, res) {
-    console.log(req.query)
+    if ("timestamp" in req.query){
+        // let date_from  = req.query.timestamp.slice(0, req.query.timestamp.indexOf(','))
+        // let date_to  = req.query.timestamp.slice(req.query.timestamp.indexOf(',')+1)
+        let dates = req.query.timestamp.split(",")
+        req.query.timestamp = {'$gte': new Date(dates[0]),'$lt': new Date(dates[1])}
+    }
     db.collection(req.params.collection).find(req.query).toArray(function(err, result) {
         if (err) throw err;
-        res.json({
-            status: "success",
-            message: "Logs retrieved successfully",
-            data: result
-        });
+        res.json(result);
     });
 };
 
-// Handle log contact actions
+// Handle post log
 exports.new = function (req, res) {
     const offset = 2;
     d = new Date();
