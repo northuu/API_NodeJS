@@ -1,8 +1,6 @@
 // Handle get actions
 exports.index = function (req, res) {
     if ("timestamp" in req.query){
-        // let date_from  = req.query.timestamp.slice(0, req.query.timestamp.indexOf(','))
-        // let date_to  = req.query.timestamp.slice(req.query.timestamp.indexOf(',')+1)
         let dates = req.query.timestamp.split(",")
         req.query.timestamp = {'$gte': new Date(dates[0]),'$lt': new Date(dates[1])}
     }
@@ -12,7 +10,7 @@ exports.index = function (req, res) {
     });
 };
 
-// Handle post log
+// Handle post action
 exports.new = function (req, res) {
     const offset = 2;
     d = new Date();
@@ -20,9 +18,9 @@ exports.new = function (req, res) {
     req.body.timestamp = new Date(utc + (3600000*offset));
 
     try{
-        var test = db.collection(req.params.collection).insertOne(req.body);
+        var posted_element = db.collection(req.params.collection).insertOne(req.body);
         res.json({
-            id:test.insertedId,
+            id:posted_element.insertedId,
         })
     }catch (e){
         res.json({
@@ -30,16 +28,4 @@ exports.new = function (req, res) {
             message: e
         });
     }
-};
-// Handle view contact info
-exports.view = function (req, res) {
-    res.json({ message:"Not implemented"})
-};
-// Handle update contact info
-exports.update = function (req, res) {
-    res.json({ message:"Not implemented"})
-};
-// Handle delete contact
-exports.delete = function (req, res) {
-    res.json({ message:"Not implemented"})
 };
