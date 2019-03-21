@@ -29,3 +29,15 @@ exports.new = function (req, res) {
         });
     }
 };
+
+// Handle get counters action
+exports.get_counter = function (req, res) {
+    if ("timestamp" in req.query){
+        let dates = req.query.timestamp.split(",")
+        req.query.timestamp = {'$gte': new Date(dates[0]),'$lt': new Date(dates[1])}
+    }
+    db.collection(req.params.collection).countDocuments(req.query,function(err, result) {
+        if (err) throw err;
+        res.json(result);
+    });
+};
